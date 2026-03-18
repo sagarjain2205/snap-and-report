@@ -2,15 +2,20 @@ import axios from 'axios'
 
 const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
-  timeout: 30000
+  timeout: 30000,
+  withCredentials: true   // 🔥 IMPORTANT (CORS fix)
 })
 
+// Attach token automatically
 API.interceptors.request.use(config => {
   const token = localStorage.getItem('snr_token')
-  if (token) config.headers.Authorization = `Bearer ${token}`
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
   return config
 })
 
+// Handle errors globally
 API.interceptors.response.use(
   res => res,
   err => {
@@ -23,28 +28,34 @@ API.interceptors.response.use(
   }
 )
 
+// ✅ AUTH APIs
 export const authAPI = {
   registerCitizen: d => API.post('/auth/register/citizen', d),
   login:           d => API.post('/auth/login', d),
-  getMe:           ()  => API.get('/auth/me'),
+  getMe:           () => API.get('/auth/me'),
 }
 
+// ✅ REPORT APIs
 export const reportAPI = {
-  submit:      fd => API.post('/reports', fd, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  submit: fd => API.post('/reports', fd, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
   getMyReports: p => API.get('/reports/my', { params: p }),
   getAll:       p => API.get('/reports', { params: p }),
   getById:      id => API.get(`/reports/${id}`),
-  review:    (id,d) => API.put(`/reports/${id}/review`, d),
+  review:    (id, d) => API.put(`/reports/${id}/review`, d),
 }
 
+// ✅ CHALLAN APIs
 export const challanAPI = {
-  issue:       d  => API.post('/challans', d),
-  getAll:      p  => API.get('/challans', { params: p }),
-  getById:     id => API.get(`/challans/${id}`),
-  updatePayment:(id,d) => API.put(`/challans/${id}/payment`, d),
-  downloadPDF: id => API.get(`/challans/${id}/pdf`, { responseType: 'blob' }),
+  issue:        d  => API.post('/challans', d),
+  getAll:       p  => API.get('/challans', { params: p }),
+  getById:      id => API.get(`/challans/${id}`),
+  updatePayment:(id, d) => API.put(`/challans/${id}/payment`, d),
+  downloadPDF:  id => API.get(`/challans/${id}/pdf`, { responseType: 'blob' }),
 }
 
+// ✅ STATS APIs
 export const statsAPI = {
   dashboard: () => API.get('/stats/dashboard'),
   citizen:   () => API.get('/stats/citizen'),
