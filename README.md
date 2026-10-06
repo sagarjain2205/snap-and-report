@@ -4,6 +4,9 @@
   <a href="https://snap-and-report.vercel.app/login" target="_blank">
     <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Open%20App-blue?style=for-the-badge&logo=vercel" />
   </a>
+  <a href="https://snap-and-report-landingpage.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🌐%20Landing%20Page-Visit%20Website-black?style=for-the-badge&logo=vercel" />
+  </a>
 </p>
 
 ---
