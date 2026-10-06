@@ -1,7 +1,7 @@
 # 🚗 Snap & Report — AI Illegal Parking Reporter
 
 <p align="center">
-  <a href="https://snap-and-report-4q8hgism0-jainsagar00003-5829s-projects.vercel.app/" target="_blank">
+  <a href="https://snap-and-report.vercel.app/login" target="_blank">
     <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Open%20App-blue?style=for-the-badge&logo=vercel" />
   </a>
 </p>
